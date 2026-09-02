@@ -1,0 +1,1772 @@
+/* ============================================================
+   STUDENT DASHBOARD — SINGLE CSS FILE
+   SkillBridge
+   ============================================================ */
+
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #f5f7fb;
+    color: #172033;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   MAIN DASHBOARD LAYOUT
+   ============================================================ */
+
+.dashboard-layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 24px 16px;
+
+    background: #ffffff;
+    border-right: 1px solid #e6e9ef;
+
+    z-index: 100;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/* Brand */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 4px 8px 28px;
+
+    min-width: 0;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.brand h1 {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.brand span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 11px;
+    color: #8a93a5;
+
+    white-space: nowrap;
+}
+
+
+/* Sidebar Section */
+
+.sidebar-section-title {
+    margin: 8px 10px 9px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    color: #9aa2b1;
+}
+
+
+/* Navigation */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    min-width: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 11px 11px;
+
+    border-radius: 8px;
+
+    color: #596273;
+    text-decoration: none;
+
+    transition: background 0.15s ease;
+}
+
+.nav-item svg:first-child {
+    flex-shrink: 0;
+}
+
+.nav-item span {
+    min-width: 0;
+
+    margin-left: 11px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 13px;
+}
+
+.nav-arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+
+    opacity: 0.35;
+}
+
+.nav-item:hover {
+    background: #f5f6fa;
+}
+
+.nav-item.active {
+    background: #eef2ff;
+    color: #4f46e5;
+    font-weight: 600;
+}
+
+
+/* Divider */
+
+.sidebar-divider {
+    height: 1px;
+
+    margin: 18px 4px;
+
+    background: #eceef3;
+
+    flex-shrink: 0;
+}
+
+
+/* Platform */
+
+.sidebar-extra {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sidebar-extra button {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 10px 11px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #596273;
+
+    text-align: left;
+}
+
+.sidebar-extra button:hover {
+    background: #f5f6fa;
+}
+
+.sidebar-extra button svg {
+    flex-shrink: 0;
+}
+
+.sidebar-extra button span {
+    min-width: 0;
+
+    margin-left: 11px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 13px;
+}
+
+
+/* Sidebar Bottom */
+
+.sidebar-bottom {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: auto;
+    padding: 16px 4px 0;
+
+    border-top: 1px solid #eceef3;
+}
+
+.mini-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    min-width: 0;
+    flex: 1;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef2ff;
+    color: #4f46e5;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.mini-profile-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.mini-profile-info strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 12px;
+}
+
+.mini-profile-info span {
+    margin-top: 2px;
+
+    font-size: 10px;
+    color: #8a93a5;
+}
+
+.logout-button {
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: transparent;
+    color: #8a93a5;
+}
+
+.logout-button:hover {
+    background: #f5f6fa;
+    color: #ef4444;
+}
+
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+
+.dashboard-main,
+.main-content {
+    width: calc(100% - 250px);
+
+    min-width: 0;
+    min-height: 100vh;
+
+    margin-left: 250px;
+
+    padding: 28px 32px 50px;
+
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   DASHBOARD CONTENT CONTAINER
+   ============================================================ */
+
+.dashboard-container {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    min-width: 0;
+}
+
+
+/* ============================================================
+   HEADINGS
+   ============================================================ */
+
+.dashboard-main h1,
+.dashboard-main h2,
+.dashboard-main h3,
+.dashboard-main h4,
+.dashboard-main p {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+
+/* ============================================================
+   AI CAREER COMPANION
+   ============================================================ */
+
+.ai-career-wrapper {
+    width: 100%;
+    min-width: 0;
+
+    padding: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #e7eaf0;
+    border-radius: 14px;
+
+    box-shadow: 0 2px 8px rgba(20, 30, 50, 0.04);
+
+    overflow: hidden;
+}
+
+
+/* Header */
+
+.ai-career-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.ai-career-title {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+    flex: 1;
+}
+
+.ai-icon {
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.panel-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    color: #8a93a5;
+}
+
+.ai-career-title h2 {
+    margin: 0;
+
+    font-size: 20px;
+    line-height: 1.3;
+
+    color: #172033;
+
+    overflow-wrap: anywhere;
+}
+
+.ai-sparkle {
+    flex-shrink: 0;
+    color: #4f46e5;
+}
+
+
+/* Description */
+
+.ai-career-description {
+    max-width: 760px;
+
+    margin: 18px 0;
+
+    color: #697386;
+
+    font-size: 13px;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   AI FEATURE GRID
+   ============================================================ */
+
+.ai-feature-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+
+    width: 100%;
+}
+
+.ai-feature {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    min-width: 0;
+
+    padding: 14px;
+
+    border: 1px solid #eceef3;
+    border-radius: 10px;
+
+    background: #fafbfc;
+}
+
+.ai-feature > svg {
+    flex-shrink: 0;
+
+    margin-top: 1px;
+
+    color: #4f46e5;
+}
+
+.ai-feature > div {
+    min-width: 0;
+}
+
+.ai-feature strong {
+    display: block;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.ai-feature span {
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 11px;
+    line-height: 1.45;
+
+    color: #8a93a5;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   ACTION BUTTONS
+   ============================================================ */
+
+.ai-actions {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.primary-button,
+.secondary-button {
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 9px 15px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    white-space: normal;
+
+    transition:
+        background 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.primary-button {
+    border: 1px solid #4f46e5;
+
+    background: #4f46e5;
+    color: #ffffff;
+}
+
+.primary-button:hover {
+    background: #4338ca;
+}
+
+.secondary-button {
+    border: 1px solid #dfe3eb;
+
+    background: #ffffff;
+    color: #4f46e5;
+}
+
+.secondary-button:hover {
+    background: #f7f7ff;
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.ai-error {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 9px;
+
+    margin-top: 16px;
+    padding: 12px 14px;
+
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+
+    background: #fef2f2;
+    color: #b91c1c;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.ai-error svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.ai-error span {
+    min-width: 0;
+    flex: 1;
+
+    overflow-wrap: anywhere;
+}
+
+.ai-error button {
+    flex-shrink: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: inherit;
+}
+
+
+/* ============================================================
+   AI RESULT
+   ============================================================ */
+
+.ai-result-card {
+    width: 100%;
+    min-width: 0;
+
+    margin-top: 22px;
+
+    border: 1px solid #e5e8ef;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+.ai-result-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    border-bottom: 1px solid #eceef3;
+}
+
+.ai-result-header > div {
+    min-width: 0;
+}
+
+.ai-result-header h3 {
+    margin: 0;
+
+    font-size: 17px;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.icon-button {
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 7px;
+
+    background: #f5f6fa;
+    color: #697386;
+}
+
+.ai-result-content {
+    padding: 18px;
+
+    color: #4d5768;
+
+    font-size: 13px;
+    line-height: 1.7;
+
+    overflow-wrap: anywhere;
+}
+
+.ai-result-content h3 {
+    margin: 18px 0 8px;
+
+    font-size: 17px;
+    color: #172033;
+}
+
+.ai-result-content h4 {
+    margin: 16px 0 7px;
+
+    font-size: 14px;
+    color: #172033;
+}
+
+.ai-result-content p {
+    margin: 6px 0;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   SKILL GAP RESULT
+   ============================================================ */
+
+.skill-gap-result {
+    width: 100%;
+    min-width: 0;
+
+    margin-top: 22px;
+
+    padding: 22px;
+
+    border: 1px solid #e5e8ef;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* Result Header */
+
+.skill-gap-result-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.skill-gap-result-header > div:first-child {
+    min-width: 0;
+    flex: 1;
+}
+
+.skill-gap-result-header h3 {
+    margin: 3px 0 7px;
+
+    font-size: 20px;
+    line-height: 1.3;
+
+    color: #172033;
+
+    overflow-wrap: anywhere;
+}
+
+.skill-gap-result-header p {
+    margin: 0;
+
+    max-width: 700px;
+
+    color: #737d8f;
+
+    font-size: 12px;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* Match Circle */
+
+.skill-match-circle {
+    width: 82px;
+    height: 82px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 5px solid #eef2ff;
+    border-radius: 50%;
+
+    background: #ffffff;
+}
+
+.skill-match-circle strong {
+    font-size: 18px;
+    line-height: 1.1;
+
+    color: #4f46e5;
+}
+
+.skill-match-circle span {
+    margin-top: 3px;
+
+    font-size: 9px;
+    color: #8a93a5;
+}
+
+
+/* ============================================================
+   READINESS
+   ============================================================ */
+
+.readiness-banner {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 20px;
+    padding: 14px 16px;
+
+    border: 1px solid #e5e8ef;
+    border-radius: 10px;
+
+    background: #fafbfc;
+}
+
+.readiness-icon {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.readiness-banner > div:last-child {
+    min-width: 0;
+}
+
+.readiness-banner span {
+    display: block;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    color: #8a93a5;
+}
+
+.readiness-banner strong {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 13px;
+
+    color: #172033;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   SECTION TITLE
+   ============================================================ */
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 0;
+
+    margin-bottom: 14px;
+}
+
+.section-title svg {
+    flex-shrink: 0;
+    color: #4f46e5;
+}
+
+.section-title h4 {
+    margin: 0;
+
+    min-width: 0;
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    color: #172033;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   SKILL GAP SUMMARY
+   ============================================================ */
+
+.skill-gap-summary {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.gap-summary-card {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+
+    padding: 13px;
+
+    border: 1px solid #eceef3;
+    border-radius: 9px;
+
+    background: #fafbfc;
+}
+
+.gap-summary-card > svg {
+    flex-shrink: 0;
+
+    color: #4f46e5;
+}
+
+.gap-summary-card > div {
+    min-width: 0;
+}
+
+.gap-summary-card span {
+    display: block;
+
+    font-size: 10px;
+    color: #8a93a5;
+
+    overflow-wrap: anywhere;
+}
+
+.gap-summary-card strong {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 18px;
+    line-height: 1.2;
+
+    color: #172033;
+}
+
+
+/* ============================================================
+   SKILL ANALYSIS
+   ============================================================ */
+
+.skill-analysis-section {
+    margin-top: 24px;
+}
+
+.skill-analysis-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    width: 100%;
+}
+
+.skill-analysis-item {
+    width: 100%;
+    min-width: 0;
+
+    padding: 13px 14px;
+
+    border: 1px solid #eceef3;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+.skill-analysis-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.skill-analysis-top strong {
+    min-width: 0;
+
+    font-size: 12px;
+
+    overflow-wrap: anywhere;
+}
+
+.skill-analysis-top span {
+    flex-shrink: 0;
+
+    padding: 3px 7px;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* Priority */
+
+.skill-gap-high {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.skill-gap-medium {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.skill-gap-low {
+    background: #fefce8;
+    color: #ca8a04;
+}
+
+.skill-gap-ready {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+
+/* Skill Bar */
+
+.skill-analysis-bar {
+    position: relative;
+
+    width: 100%;
+    height: 7px;
+
+    margin-top: 10px;
+
+    border-radius: 20px;
+
+    background: #edf0f5;
+
+    overflow: visible;
+}
+
+.skill-current-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    height: 100%;
+
+    max-width: 100%;
+
+    border-radius: inherit;
+
+    background: #4f46e5;
+}
+
+.skill-required-marker {
+    position: absolute;
+    top: -3px;
+
+    width: 2px;
+    height: 13px;
+
+    background: #172033;
+
+    transform: translateX(-50%);
+}
+
+
+/* Skill Meta */
+
+.skill-analysis-meta {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px 18px;
+
+    margin-top: 9px;
+
+    color: #8a93a5;
+
+    font-size: 10px;
+}
+
+.skill-analysis-meta span {
+    white-space: nowrap;
+}
+
+.skill-analysis-meta strong {
+    color: #596273;
+}
+
+
+/* ============================================================
+   LEARNING PATH
+   ============================================================ */
+
+.learning-path-section {
+    margin-top: 25px;
+}
+
+.learning-path-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.learning-path-item {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+
+    padding: 12px;
+
+    border: 1px solid #eceef3;
+    border-radius: 9px;
+
+    background: #fafbfc;
+}
+
+.learning-number {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef2ff;
+    color: #4f46e5;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.learning-path-item > div:nth-child(2) {
+    min-width: 0;
+    flex: 1;
+}
+
+.learning-path-item strong {
+    display: block;
+
+    font-size: 12px;
+
+    color: #172033;
+
+    overflow-wrap: anywhere;
+}
+
+.learning-path-item span {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 10px;
+    line-height: 1.5;
+
+    color: #8a93a5;
+
+    overflow-wrap: anywhere;
+}
+
+.learning-path-item > svg {
+    flex-shrink: 0;
+
+    color: #8a93a5;
+}
+
+
+/* ============================================================
+   PROJECT RECOMMENDATIONS
+   ============================================================ */
+
+.project-recommendation {
+    margin-top: 25px;
+}
+
+.project-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+.project-card {
+    min-width: 0;
+
+    padding: 15px;
+
+    border: 1px solid #eceef3;
+    border-radius: 9px;
+
+    background: #ffffff;
+}
+
+.project-card > span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    color: #8a93a5;
+}
+
+.project-card strong {
+    display: block;
+
+    font-size: 13px;
+    line-height: 1.4;
+
+    color: #172033;
+
+    overflow-wrap: anywhere;
+}
+
+.project-card p {
+    margin: 7px 0 0;
+
+    font-size: 10px;
+    line-height: 1.6;
+
+    color: #737d8f;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   NEXT ACTIONS
+   ============================================================ */
+
+.next-actions {
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #eceef3;
+}
+
+.next-actions ol {
+    margin: 0;
+    padding-left: 21px;
+
+    color: #596273;
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.next-actions li {
+    padding-left: 4px;
+    margin-bottom: 5px;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   CAREER CARD / OTHER DASHBOARD CARDS
+   ============================================================ */
+
+.card,
+.dashboard-card,
+.career-card,
+.stat-card {
+    min-width: 0;
+
+    overflow: hidden;
+}
+
+.card p,
+.dashboard-card p,
+.career-card p,
+.stat-card p {
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   CAREER
+   ============================================================ */
+
+.career-section {
+    width: 100%;
+    min-width: 0;
+}
+
+.career-section h2,
+.career-section h3,
+.career-section h4 {
+    overflow-wrap: anywhere;
+}
+
+.career-score {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   SVG SAFETY
+   ============================================================ */
+
+svg {
+    flex-shrink: 0;
+    max-width: 100%;
+}
+
+
+/* ============================================================
+   TEXT SAFETY
+   IMPORTANT:
+   Prevents long text from being hidden behind sidebar/card edges.
+   ============================================================ */
+
+.ai-career-wrapper *,
+.skill-gap-result *,
+.ai-result-card *,
+.dashboard-main * {
+    max-width: 100%;
+}
+
+.ai-career-wrapper p,
+.ai-career-wrapper span,
+.ai-career-wrapper strong,
+.ai-career-wrapper h1,
+.ai-career-wrapper h2,
+.ai-career-wrapper h3,
+.ai-career-wrapper h4,
+.skill-gap-result p,
+.skill-gap-result span,
+.skill-gap-result strong,
+.skill-gap-result h1,
+.skill-gap-result h2,
+.skill-gap-result h3,
+.skill-gap-result h4 {
+    overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+    .dashboard-main,
+    .main-content {
+        width: calc(100% - 220px);
+        margin-left: 220px;
+
+        padding: 24px;
+    }
+
+    .ai-feature-grid,
+    .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skill-gap-summary {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — SMALL TABLET
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+    .sidebar {
+        width: 200px;
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .dashboard-main,
+    .main-content {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+
+        padding: 20px;
+    }
+
+    .brand h1 {
+        font-size: 16px;
+    }
+
+    .ai-feature-grid,
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-gap-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-gap-result-header {
+        flex-direction: column;
+    }
+
+    .skill-match-circle {
+        width: 72px;
+        height: 72px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .dashboard-layout {
+        display: block;
+    }
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+        height: auto;
+
+        max-height: none;
+
+        border-right: 0;
+        border-bottom: 1px solid #e6e9ef;
+    }
+
+    .dashboard-main,
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+
+        padding: 16px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 20px;
+    }
+
+    .ai-career-wrapper,
+    .skill-gap-result {
+        padding: 16px;
+    }
+
+    .ai-career-header {
+        gap: 10px;
+    }
+
+    .ai-career-title h2 {
+        font-size: 17px;
+    }
+
+    .ai-actions {
+        flex-direction: column;
+    }
+
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+    }
+
+    .skill-analysis-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .dashboard-main,
+    .main-content {
+        padding: 12px;
+    }
+
+    .ai-career-wrapper,
+    .skill-gap-result {
+        padding: 13px;
+        border-radius: 10px;
+    }
+
+    .ai-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .ai-career-title h2 {
+        font-size: 16px;
+    }
+
+    .skill-gap-result-header h3 {
+        font-size: 17px;
+    }
+
+    .skill-analysis-item {
+        padding: 11px;
+    }
+
+    .project-card {
+        padding: 13px;
+    }
+}
+
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #dfe3eb;
+    border-radius: 10px;
+}
+
+.dashboard-main::-webkit-scrollbar,
+.main-content::-webkit-scrollbar {
+    height: 5px;
+}
+
+
+/* ============================================================
+   FINAL OVERFLOW PROTECTION
+   ============================================================ */
+
+.dashboard-layout,
+.dashboard-main,
+.main-content,
+.dashboard-container,
+.ai-career-wrapper,
+.ai-result-card,
+.skill-gap-result {
+    overflow-x: hidden;
+}
+
+.ai-feature,
+.project-card,
+.skill-analysis-item,
+.learning-path-item,
+.gap-summary-card {
+    overflow: hidden;
+}
+
+/* ============================================================
+   PLACEMENT OPPORTUNITY
+============================================================ */
+
+.placement-opportunity {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+
+.opportunity-main {
+    display: flex;
+    gap: 18px;
+    flex: 1;
+}
+
+
+.opportunity-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: rgba(99, 102, 241, 0.12);
+}
+
+
+.opportunity-domain {
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+
+.opportunity-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    margin-top: 14px;
+}
+
+
+.opportunity-details span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 14px;
+}
+
+
+.match-score {
+    min-width: 150px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+
+.match-score strong {
+    font-size: 28px;
+}
+
+
+.match-score span {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+
+.match-score .primary-button {
+    margin-top: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+
+@media (max-width: 768px) {
+
+    .placement-opportunity {
+        flex-direction: column;
+    }
+
+
+    .match-score {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+
+    .opportunity-main {
+        width: 100%;
+    }
+
+}
