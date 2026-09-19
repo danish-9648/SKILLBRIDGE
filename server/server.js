@@ -43,6 +43,7 @@ app.use(
             "http://localhost:5173",
             "http://localhost:5174",
             "https://skillbridge-sand-three.vercel.app",
+            "https://skillbridge-expark.vercel.app",
         ],
 
         credentials: true,
