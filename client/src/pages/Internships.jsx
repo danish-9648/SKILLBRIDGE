@@ -1,5 +1,7 @@
+
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
     Search,
     BriefcaseBusiness,
@@ -22,6 +24,7 @@ function Internships() {
 
     const [internships, setInternships] = useState([]);
     const [recommendations, setRecommendations] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -29,6 +32,10 @@ function Internships() {
     const [domain, setDomain] = useState("ALL");
     const [workMode, setWorkMode] = useState("ALL");
     const [sortBy, setSortBy] = useState("MATCH");
+
+    // ============================================================
+    // LOAD INTERNSHIPS
+    // ============================================================
 
     const loadInternships = async () => {
         try {
@@ -51,30 +58,40 @@ function Internships() {
                 recommendedResponse ||
                 {};
 
-            const allList =
-                Array.isArray(allData)
-                    ? allData
-                    : Array.isArray(allData.internships)
-                    ? allData.internships
-                    : Array.isArray(allData.results)
-                    ? allData.results
-                    : [];
+            const allList = Array.isArray(allData)
+                ? allData
+                : Array.isArray(allData.internships)
+                ? allData.internships
+                : Array.isArray(allData.results)
+                ? allData.results
+                : [];
 
-            const recommendedList =
-                Array.isArray(recommendedData)
-                    ? recommendedData
-                    : Array.isArray(
-                          recommendedData.recommendations
-                      )
-                    ? recommendedData.recommendations
-                    : Array.isArray(
-                          recommendedData.internships
-                      )
-                    ? recommendedData.internships
-                    : [];
+            const recommendedList = Array.isArray(
+                recommendedData
+            )
+                ? recommendedData
+                : Array.isArray(
+                      recommendedData.recommendations
+                  )
+                ? recommendedData.recommendations
+                : Array.isArray(
+                      recommendedData.internships
+                  )
+                ? recommendedData.internships
+                : [];
 
             setInternships(allList);
             setRecommendations(recommendedList);
+
+            console.log(
+                "ALL INTERNSHIPS:",
+                allList
+            );
+
+            console.log(
+                "RECOMMENDED INTERNSHIPS:",
+                recommendedList
+            );
         } catch (err) {
             console.error(
                 "Internship loading error:",
@@ -94,9 +111,10 @@ function Internships() {
         loadInternships();
     }, []);
 
-    /*
-     * Create a map of internship ID -> match score.
-     */
+    // ============================================================
+    // MATCH SCORE MAP
+    // ============================================================
+
     const matchMap = useMemo(() => {
         const map = {};
 
@@ -123,9 +141,10 @@ function Internships() {
         return map;
     }, [recommendations]);
 
-    /*
-     * Get unique domains.
-     */
+    // ============================================================
+    // DOMAINS
+    // ============================================================
+
     const domains = useMemo(() => {
         const values = internships
             .map((internship) =>
@@ -133,68 +152,84 @@ function Internships() {
             )
             .filter(Boolean);
 
-        return ["ALL", ...new Set(values)];
+        return [
+            "ALL",
+            ...new Set(values),
+        ];
     }, [internships]);
 
-    /*
-     * Filter + search + sort.
-     */
+    // ============================================================
+    // FILTER + SEARCH + SORT
+    // ============================================================
+
     const filteredInternships = useMemo(() => {
         let result = [...internships];
 
         const searchValue =
             search.trim().toLowerCase();
 
+        // Search
         if (searchValue) {
-            result = result.filter((internship) => {
-                const title =
-                    internship?.title
-                        ?.toLowerCase() || "";
+            result = result.filter(
+                (internship) => {
+                    const title =
+                        internship?.title
+                            ?.toLowerCase() || "";
 
-                const internshipDomain =
-                    internship?.domain
-                        ?.toLowerCase() || "";
+                    const internshipDomain =
+                        internship?.domain
+                            ?.toLowerCase() || "";
 
-                const description =
-                    internship?.description
-                        ?.toLowerCase() || "";
+                    const description =
+                        internship?.description
+                            ?.toLowerCase() || "";
 
-                const skills =
-                    Array.isArray(
-                        internship?.requiredSkills
-                    )
-                        ? internship.requiredSkills
-                              .join(" ")
-                              .toLowerCase()
-                        : "";
+                    const skills =
+                        Array.isArray(
+                            internship?.requiredSkills
+                        )
+                            ? internship.requiredSkills
+                                  .join(" ")
+                                  .toLowerCase()
+                            : "";
 
-                return (
-                    title.includes(searchValue) ||
-                    internshipDomain.includes(
-                        searchValue
-                    ) ||
-                    description.includes(
-                        searchValue
-                    ) ||
-                    skills.includes(searchValue)
-                );
-            });
+                    return (
+                        title.includes(
+                            searchValue
+                        ) ||
+                        internshipDomain.includes(
+                            searchValue
+                        ) ||
+                        description.includes(
+                            searchValue
+                        ) ||
+                        skills.includes(
+                            searchValue
+                        )
+                    );
+                }
+            );
         }
 
+        // Domain
         if (domain !== "ALL") {
             result = result.filter(
                 (internship) =>
-                    internship?.domain === domain
+                    internship?.domain ===
+                    domain
             );
         }
 
+        // Work mode
         if (workMode !== "ALL") {
             result = result.filter(
                 (internship) =>
-                    internship?.workMode === workMode
+                    internship?.workMode ===
+                    workMode
             );
         }
 
+        // Best match
         if (sortBy === "MATCH") {
             result.sort(
                 (a, b) =>
@@ -203,6 +238,7 @@ function Internships() {
             );
         }
 
+        // Latest
         if (sortBy === "LATEST") {
             result.sort(
                 (a, b) =>
@@ -215,10 +251,15 @@ function Internships() {
             );
         }
 
+        // A-Z
         if (sortBy === "TITLE") {
             result.sort((a, b) =>
-                String(a?.title || "").localeCompare(
-                    String(b?.title || "")
+                String(
+                    a?.title || ""
+                ).localeCompare(
+                    String(
+                        b?.title || ""
+                    )
                 )
             );
         }
@@ -233,6 +274,10 @@ function Internships() {
         matchMap,
     ]);
 
+    // ============================================================
+    // LOADING
+    // ============================================================
+
     if (loading) {
         return (
             <div className="page-container">
@@ -243,17 +288,23 @@ function Internships() {
                     />
 
                     <h2>
-                        Finding opportunities for you...
+                        Finding opportunities
+                        for you...
                     </h2>
 
                     <p>
-                        Matching your skills with
-                        available internships.
+                        Matching your skills
+                        with available
+                        internships.
                     </p>
                 </div>
             </div>
         );
     }
+
+    // ============================================================
+    // ERROR
+    // ============================================================
 
     if (error) {
         return (
@@ -264,16 +315,21 @@ function Internships() {
                     </div>
 
                     <h2>
-                        Unable to load internships
+                        Unable to load
+                        internships
                     </h2>
 
                     <p>{error}</p>
 
                     <button
                         className="primary-button"
-                        onClick={loadInternships}
+                        onClick={
+                            loadInternships
+                        }
                     >
-                        <RefreshCw size={17} />
+                        <RefreshCw
+                            size={17}
+                        />
                         Try Again
                     </button>
                 </div>
@@ -281,10 +337,16 @@ function Internships() {
         );
     }
 
+    // ============================================================
+    // MAIN UI
+    // ============================================================
+
     return (
         <div className="page-container internship-page">
 
-            {/* HERO */}
+            {/* =====================================================
+                HERO
+            ===================================================== */}
 
             <section className="internship-hero">
                 <div>
@@ -295,18 +357,23 @@ function Internships() {
 
                     <h1>
                         Find Your Next{" "}
-                        <span>Opportunity</span>
+                        <span>
+                            Opportunity
+                        </span>
                     </h1>
 
                     <p>
-                        Discover internships matched
-                        with your skills, interests and
+                        Discover internships
+                        matched with your
+                        skills, interests and
                         career goals.
                     </p>
                 </div>
 
                 <div className="internship-hero-stat">
-                    <BriefcaseBusiness size={24} />
+                    <BriefcaseBusiness
+                        size={24}
+                    />
 
                     <strong>
                         {internships.length}
@@ -318,7 +385,9 @@ function Internships() {
                 </div>
             </section>
 
-            {/* SEARCH */}
+            {/* =====================================================
+                SEARCH + FILTERS
+            ===================================================== */}
 
             <section className="internship-search-card">
 
@@ -348,16 +417,19 @@ function Internships() {
                             )
                         }
                     >
-                        {domains.map((item) => (
-                            <option
-                                key={item}
-                                value={item}
-                            >
-                                {item === "ALL"
-                                    ? "All Domains"
-                                    : item}
-                            </option>
-                        ))}
+                        {domains.map(
+                            (item) => (
+                                <option
+                                    key={item}
+                                    value={item}
+                                >
+                                    {item ===
+                                    "ALL"
+                                        ? "All Domains"
+                                        : item}
+                                </option>
+                            )
+                        )}
                     </select>
                 </div>
 
@@ -391,7 +463,9 @@ function Internships() {
                 </div>
 
                 <div className="filter-control">
-                    <SlidersHorizontal size={17} />
+                    <SlidersHorizontal
+                        size={17}
+                    />
 
                     <select
                         value={sortBy}
@@ -416,31 +490,43 @@ function Internships() {
                 </div>
             </section>
 
-            {/* RESULTS */}
+            {/* =====================================================
+                RESULTS HEADER
+            ===================================================== */}
 
             <section className="internship-results-header">
-                <div>
-                    <span>
-                        {filteredInternships.length}{" "}
-                        opportunities found
-                    </span>
-                </div>
+                <span>
+                    {filteredInternships.length}{" "}
+                    opportunities found
+                </span>
             </section>
 
-            {filteredInternships.length === 0 ? (
+            {/* =====================================================
+                EMPTY STATE
+            ===================================================== */}
+
+            {filteredInternships.length ===
+            0 ? (
                 <div className="empty-opportunities">
-                    <BriefcaseBusiness size={34} />
+                    <BriefcaseBusiness
+                        size={34}
+                    />
 
                     <h3>
                         No internships found
                     </h3>
 
                     <p>
-                        Try changing your search or
-                        filters.
+                        Try changing your
+                        search or filters.
                     </p>
                 </div>
             ) : (
+
+                /* =================================================
+                   INTERNSHIP GRID
+                ================================================= */
+
                 <section className="internship-grid">
 
                     {filteredInternships.map(
@@ -450,8 +536,13 @@ function Internships() {
 
                             const matchScore =
                                 Number(
-                                    matchMap[id] || 0
+                                    matchMap[id] ||
+                                        0
                                 );
+
+                            const isClosed =
+                                internship?.status ===
+                                "CLOSED";
 
                             return (
                                 <article
@@ -459,24 +550,31 @@ function Internships() {
                                     key={id}
                                 >
 
+                                    {/* Featured */}
                                     {internship?.featured && (
                                         <div className="featured-badge">
                                             <Sparkles
-                                                size={13}
+                                                size={
+                                                    13
+                                                }
                                             />
                                             Featured
                                         </div>
                                     )}
 
+                                    {/* Card Top */}
                                     <div className="internship-card-top">
 
                                         <div className="internship-company-icon">
                                             <BriefcaseBusiness
-                                                size={23}
+                                                size={
+                                                    23
+                                                }
                                             />
                                         </div>
 
-                                        {matchScore > 0 && (
+                                        {matchScore >
+                                            0 && (
                                             <div className="match-pill">
                                                 <strong>
                                                     {
@@ -484,6 +582,7 @@ function Internships() {
                                                     }
                                                     %
                                                 </strong>
+
                                                 <span>
                                                     Match
                                                 </span>
@@ -491,25 +590,23 @@ function Internships() {
                                         )}
                                     </div>
 
+                                    {/* Content */}
                                     <div className="internship-card-content">
 
                                         <h2>
-                                            {
-                                                internship?.title ||
-                                                "Internship Opportunity"
-                                            }
+                                            {internship?.title ||
+                                                "Internship Opportunity"}
                                         </h2>
 
                                         <div className="internship-domain">
-                                            {
-                                                internship?.domain ||
-                                                "Technology"
-                                            }
+                                            {internship?.domain ||
+                                                "Technology"}
                                         </div>
 
                                         <p>
                                             {internship?.description
-                                                ? internship.description.length >
+                                                ? internship.description
+                                                      .length >
                                                   125
                                                     ? `${internship.description.slice(
                                                           0,
@@ -519,11 +616,14 @@ function Internships() {
                                                 : "Explore this opportunity and build real-world industry experience."}
                                         </p>
 
+                                        {/* Meta */}
                                         <div className="internship-meta">
 
                                             <span>
                                                 <MapPin
-                                                    size={15}
+                                                    size={
+                                                        15
+                                                    }
                                                 />
 
                                                 {internship?.workMode ||
@@ -532,7 +632,9 @@ function Internships() {
 
                                             <span>
                                                 <Clock3
-                                                    size={15}
+                                                    size={
+                                                        15
+                                                    }
                                                 />
 
                                                 {internship?.duration ||
@@ -540,6 +642,7 @@ function Internships() {
                                             </span>
                                         </div>
 
+                                        {/* Skills */}
                                         <div className="required-skills">
 
                                             {(
@@ -580,9 +683,9 @@ function Internships() {
                                                 </span>
                                             )}
                                         </div>
-
                                     </div>
 
+                                    {/* Footer */}
                                     <div className="internship-card-footer">
 
                                         <div>
@@ -596,26 +699,64 @@ function Internships() {
                                             </strong>
                                         </div>
 
-                                        <button
-                                            onClick={() =>
-                                                navigate(
-                                                    `/internships/${id}`
-                                                )
-                                            }
+                                        {/* Actions */}
+                                        <div
+                                            style={{
+                                                display:
+                                                    "flex",
+                                                gap:
+                                                    "8px",
+                                                alignItems:
+                                                    "center",
+                                            }}
                                         >
-                                            View Details
-                                            <ArrowRight
-                                                size={16}
-                                            />
-                                        </button>
 
+                                            <button
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/internships/${id}`
+                                                    )
+                                                }
+                                            >
+                                                View Details
+                                                <ArrowRight
+                                                    size={
+                                                        16
+                                                    }
+                                                />
+                                            </button>
+
+                                            <button
+                                                disabled={
+                                                    isClosed
+                                                }
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/internships/${id}?apply=true`
+                                                    )
+                                                }
+                                                style={{
+                                                    opacity:
+                                                        isClosed
+                                                            ? 0.5
+                                                            : 1,
+                                                    cursor:
+                                                        isClosed
+                                                            ? "not-allowed"
+                                                            : "pointer",
+                                                }}
+                                            >
+                                                {isClosed
+                                                    ? "Closed"
+                                                    : "Apply Now"}
+                                            </button>
+
+                                        </div>
                                     </div>
-
                                 </article>
                             );
                         }
                     )}
-
                 </section>
             )}
         </div>
@@ -623,3 +764,4 @@ function Internships() {
 }
 
 export default Internships;
+

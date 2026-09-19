@@ -1,7 +1,8 @@
+
 import {
     Routes,
     Route,
-    Navigate
+    Navigate,
 } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -13,10 +14,11 @@ import Register from "./pages/Register";
 import StudentDashboard from "./pages/StudentDashboard";
 import Assessment from "./pages/Assessment";
 import Internships from "./pages/Internships";
+import InternshipDetails from "./pages/InternshipDetails";
 import Applications from "./pages/Applications";
+import MyApplications from "./pages/MyApplications";
 import Portfolio from "./pages/Portfolio";
 import EditProfile from "./pages/EditProfile";
-
 import PlacementReadiness from "./pages/PlacementReadiness";
 import PlacementRecommendations from "./pages/PlacementRecommendations";
 
@@ -24,8 +26,7 @@ import IndustryDashboard from "./pages/IndustryDashboard";
 import IndustryApplications from "./pages/IndustryApplications";
 import IndustryApplicationDetails from "./pages/IndustryApplicationDetails";
 import IndustryInternships from "./pages/IndustryInternships";
-import InternshipDetails from "./pages/InternshipDetails";
-import MyApplications from "./pages/MyApplications";
+
 import AIAssistant from "./pages/AIAssistant";
 
 
@@ -59,7 +60,6 @@ function App() {
                     />
                 }
             >
-
                 <Route
                     element={<AppLayout />}
                 >
@@ -80,8 +80,18 @@ function App() {
                     />
 
                     <Route
+                        path="/internships/:internshipId"
+                        element={<InternshipDetails />}
+                    />
+
+                    <Route
                         path="/applications"
                         element={<Applications />}
+                    />
+
+                    <Route
+                        path="/my-applications"
+                        element={<MyApplications />}
                     />
 
                     <Route
@@ -112,7 +122,6 @@ function App() {
                     />
 
                 </Route>
-
             </Route>
 
 
@@ -127,7 +136,6 @@ function App() {
                     />
                 }
             >
-
                 <Route
                     element={<AppLayout />}
                 >
@@ -153,21 +161,13 @@ function App() {
                             <IndustryApplicationDetails />
                         }
                     />
-                    <Route
-                        path="/internships/:internshipId"
-                        element={<InternshipDetails />}
-                    />
-                    <Route
-                        path="/my-applications"
-                        element={<MyApplications />}
-                    />
+
                     <Route
                         path="/ai-assistant"
                         element={<AIAssistant />}
                     />
 
                 </Route>
-
             </Route>
 
 
@@ -182,7 +182,7 @@ function App() {
 
 
             {/* =====================================================
-                404
+                404 ROUTE
             ===================================================== */}
 
             <Route
@@ -200,15 +200,16 @@ function App() {
 }
 
 
-/* ================================================================
+/* =============================================================
    DEFAULT REDIRECT
-================================================================ */
+============================================================= */
 
 function DefaultRedirect() {
 
     const token =
         localStorage.getItem("token");
 
+    // User is not logged in
     if (!token) {
         return (
             <Navigate
@@ -218,16 +219,19 @@ function DefaultRedirect() {
         );
     }
 
+
     let user = null;
 
     try {
         user = JSON.parse(
             localStorage.getItem("user")
         );
-    } catch {
+    } catch (error) {
         user = null;
     }
 
+
+    // Industry user
     if (user?.role === "INDUSTRY") {
         return (
             <Navigate
@@ -237,6 +241,8 @@ function DefaultRedirect() {
         );
     }
 
+
+    // Student user
     if (user?.role === "STUDENT") {
         return (
             <Navigate
@@ -246,6 +252,8 @@ function DefaultRedirect() {
         );
     }
 
+
+    // Invalid user/session
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
@@ -257,4 +265,6 @@ function DefaultRedirect() {
     );
 }
 
+
 export default App;
+
